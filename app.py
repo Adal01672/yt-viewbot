@@ -58,13 +58,13 @@ async def yt(ctx,views,min_time,max_time,link):
 	elif min_time <0:
 		error=True
 		await ctx.send('sorry but you cant do cant do less than 0')
-	elif min_time >15:
+	elif min_time >60:
 		error=True
 		await ctx.send('sorry but you cant view for such a long time give chance to other to use the bot')
 	elif max_time <0:
 		error=True
 		await ctx.send('sorry but you cant do cant do less than 0')
-	elif max_time >15:
+	elif max_time >60:
 		error=True
 		await ctx.send('sorry but you cant view for such a long time give chance to other to use the bot')
 	elif min_time > max_time:
@@ -74,8 +74,13 @@ async def yt(ctx,views,min_time,max_time,link):
 		max_time=max_time+1
 		Time=random.randrange(min_time,max_time)
 		chrome_options = webdriver.ChromeOptions()
-		driver=webdriver.Chrome()
+		chrome_options.binary_location=os.getenviron.get(GOOGLE_CHROME_BIN)
+		chrome_options.add_argument('--headless')
+		chrome_options.add_argument('--no-sandbox')
+		chrome_options.add_argument('--disable-dv-sh-usage')
+		driver=webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'))
 		await ctx.send(f'sending {views} views to this {link} video, Note: you will not get the view instantly because after the bot sents the view youtube is going to verify if the view is legit or not in this case it will be legit because the views are sent from random 22 proxies.')
+		
 		for i in range(views):
 			randomize=random.choice(PROXY_list)
 			chrome_options.add_argument('--proxy-server=%s' % randomize)
@@ -83,23 +88,4 @@ async def yt(ctx,views,min_time,max_time,link):
 			time.sleep(Time)
 	driver.close()
 
-client.run('ODYxOTMzNTgwMTA3NTEzODU2.YORAMw.FqvqQ4Ryv9H5Zd5ycqE83p7jaIo')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+client.run('ODYxOTMzNTgwMTA3NTEzODU2.YORAMw.PXLnRQ5hhdWXop_pw2pRUvAY0rk')
